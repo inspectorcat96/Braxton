@@ -24,7 +24,7 @@
                 <a type="button" role="alert" href="{% url "cart:cart_detail" %}">
                     <img src="/media/cart.png" alt="Cart">
                     {{ total_items }} ед.,
-                    {{ cart.get_total_price }}₴
+                    {{ cart.get_total_price }} ₴
                 </a>
             {% else %}
                 Ваша корзина пуста.
