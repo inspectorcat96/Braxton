@@ -1,0 +1,32 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}BRAXTON{% endif %}
+{% endblock %}
+{% block content %}
+    <div id="sidebar" >
+        <h3>Категории</h3>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" {% if not category %}class="selected"{% endif %}>
+                <a class="nav-link" href="{% url "shop:product_list" %}">Вся обувь</a>
+            </li>
+            {% for c in categories %}
+                <li class="nav-item" {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a class="nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{ category.name }}{% else %}Вся обувь{% endif %}</h1>
+        {% for product in products %}
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+                {{ product.price }}₴
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

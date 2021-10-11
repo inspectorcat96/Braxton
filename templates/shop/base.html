@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}BRAXTON{% endblock %}</title>
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body class="p-3 mb-2 bg-white text-dark">
+<div id="header">
+    <a href="/"><h1 align="center"><img src="/media/braxton.png" alt="Logo"></h1></a>
+</div>
+<div class="d-flex justify-content-between">
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="subheader">
+        <div class="cart nav justify-content-end">
+        {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+                <a type="button" role="alert" href="{% url "cart:cart_detail" %}">
+                    <img src="/media/cart.png" alt="Cart">
+                    {{ total_items }} ед.,
+                    {{ cart.get_total_price }}₴
+                </a>
+            {% else %}
+                Ваша корзина пуста.
+            {% endif %}
+        {% endwith %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
